@@ -70,7 +70,7 @@ export type FormattedCustomersTable = {
   total_paid: string;
 };
 
-export type CustomerField = {
+export type UserField = {
   id: string;
   name: string;
 };

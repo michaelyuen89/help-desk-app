@@ -1,10 +1,10 @@
 import Form from "@/app/ui/tickets/create-form";
 import Breadcrumbs from "@/app/ui/tickets/breadcrumbs";
-// import { fetchCustomers } from "@/app/lib/data";
-import { customers } from "@/app/lib/dummydata";
+import { fetchUsers } from "@/app/lib/data";
+// import { users } from "@/app/lib/dummydata";
 
 export default async function Page() {
-  //   const customers = await fetchCustomers();
+    const users = await fetchUsers();
 
   return (
     <main>
@@ -18,7 +18,7 @@ export default async function Page() {
           },
         ]}
       />
-      <Form customers={customers} />
+      <Form users={users} />
     </main>
   );
 }

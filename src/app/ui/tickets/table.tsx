@@ -21,19 +21,19 @@ export default async function TicketsTable({
           <div className="md:hidden">
             {tickets.map((ticket) => (
               <div
-                key={ticket.id}
+                key={ticket.user_id}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      <Image
+                      {/* <Image
                         src={ticket.image_url}
                         className="mr-2 rounded-full"
                         width={28}
                         height={28}
                         alt={`${ticket.name}'s profile picture`}
-                      />
+                      /> */}
                       <p>{ticket.name}</p>
                     </div>
                     <p className="text-sm text-gray-500">{ticket.email}</p>
@@ -46,8 +46,8 @@ export default async function TicketsTable({
                     <p>{formatDateToLocal(ticket.date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateTicket id={ticket.id} />
-                    <DeleteTicket id={ticket.id} />
+                    <UpdateTicket id={ticket.user_id} />
+                    <DeleteTicket id={ticket.user_id} />
                   </div>
                 </div>
               </div>
@@ -79,18 +79,18 @@ export default async function TicketsTable({
             <tbody className="bg-white">
               {tickets.map((ticket) => (
                 <tr
-                  key={ticket.id}
+                  key={ticket.user_id}
                   className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      <Image
+                      {/* <Image
                         src={ticket.image_url}
                         className="rounded-full"
                         width={28}
                         height={28}
                         alt={`${ticket.name}'s profile picture`}
-                      />
+                      /> */}
                       <p>{ticket.name}</p>
                     </div>
                   </td>
@@ -108,8 +108,8 @@ export default async function TicketsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateTicket id={ticket.id} />
-                      <DeleteTicket id={ticket.id} />
+                      <UpdateTicket id={ticket.user_id} />
+                      <DeleteTicket id={ticket.user_id} />
                     </div>
                   </td>
                 </tr>

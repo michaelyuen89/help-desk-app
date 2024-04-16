@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { CustomerField } from "@/app/lib/definitions";
+import { UserField } from "@/app/lib/definitions";
 import Link from "next/link";
 import {
   CheckIcon,
@@ -11,7 +11,7 @@ import {
 import { Button } from "@/app/ui/button";
 // import { createInvoice } from "@/app/lib/actions";
 
-export default function Form({ customers }: { customers: CustomerField[] }) {
+export default function Form({ users }: { users: UserField[] }) {
   const initialState = { message: null, errors: {} };
   //   const [state, dispatch] = useFormState(createInvoice, initialState);
 
@@ -22,7 +22,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         {/* Customer Name */}
         <div className="mb-4">
           <label htmlFor="customer" className="mb-2 block text-sm font-medium">
-            Choose customer
+            Choose user
           </label>
           {/* <div className="relative">
             <select

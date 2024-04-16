@@ -1,11 +1,11 @@
 import { sql } from '@vercel/postgres';
 import {
-  CustomerField,
-  CustomersTableType,
+  UserField,
+//   CustomersTableType,
   TicketForm,
   TicketsTable,
-  LatestInvoiceRaw,
-  User,
+//   LatestInvoiceRaw,
+//   User,
   Revenue,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -116,24 +116,24 @@ export async function fetchTicketById(id: string) {
   }
 }
 
-// export async function fetchUsers() {
-//   noStore();
-//   try {
-//     const data = await sql<CustomerField>`
-//       SELECT
-//         id,
-//         name
-//       FROM customers
-//       ORDER BY name ASC
-//     `;
+export async function fetchUsers() {
+  noStore();
+  try {
+    const data = await sql<UserField>`
+      SELECT
+        id,
+        name
+      FROM users
+      ORDER BY name ASC
+    `;
 
-//     const customers = data.rows;
-//     return customers;
-//   } catch (err) {
-//     console.error('Database Error:', err);
-//     throw new Error('Failed to fetch all customers.');
-//   }
-// }
+    const users = data.rows;
+    return users;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all users.');
+  }
+}
 
 // export async function fetchFilteredCustomers(query: string) {
 //   noStore();
