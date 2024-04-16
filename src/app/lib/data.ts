@@ -10,30 +10,8 @@ import {
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
 
-export async function fetchRevenue() {
-  // Add noStore() here to prevent the response from being cached.
-  noStore();
-  // This is equivalent to in fetch(..., {cache: 'no-store'}).
-
-  try {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-
-    console.log('Fetching revenue data...');
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const data = await sql<Revenue>`SELECT * FROM revenue`;
-
-    console.log('Data fetch completed after 3 seconds.');
-
-    return data.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch revenue data.');
-  }
-}
-
 const ITEMS_PER_PAGE = 6;
+
 export async function fetchFilteredTickets(
   query: string,
   currentPage: number,
@@ -43,18 +21,11 @@ export async function fetchFilteredTickets(
 
   try {
     const tickets = await sql<TicketsTable>`
-      SELECT
-        tickets.id,
-        tickets.description,
-        tickets.date,
-        tickets.status,
-        users.name,
-        users.email,
+      SELECT *
       FROM tickets
-      JOIN users ON tickets.user_id = users.id
       WHERE
-        users.name ILIKE ${`%${query}%`} OR
-        users.email ILIKE ${`%${query}%`} OR
+        tickets.name ILIKE ${`%${query}%`} OR
+        tickets.email ILIKE ${`%${query}%`} OR
         tickets.description::text ILIKE ${`%${query}%`} OR
         tickets.date::text ILIKE ${`%${query}%`} OR
         tickets.status ILIKE ${`%${query}%`}
@@ -68,6 +39,40 @@ export async function fetchFilteredTickets(
     throw new Error('Failed to fetch tickets.');
   }
 }
+// export async function fetchFilteredTickets(
+//   query: string,
+//   currentPage: number,
+// ) {
+//   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+//   noStore();
+
+//   try {
+//     const tickets = await sql<TicketsTable>`
+//       SELECT
+//         tickets.id,
+//         tickets.description,
+//         tickets.date,
+//         tickets.status,
+//         users.name,
+//         users.email,
+//       FROM tickets
+//       JOIN users ON tickets.user_id = users.id
+//       WHERE
+//         users.name ILIKE ${`%${query}%`} OR
+//         users.email ILIKE ${`%${query}%`} OR
+//         tickets.description::text ILIKE ${`%${query}%`} OR
+//         tickets.date::text ILIKE ${`%${query}%`} OR
+//         tickets.status ILIKE ${`%${query}%`}
+//       ORDER BY tickets.date DESC
+//       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+//     `;
+
+//     return tickets.rows;
+//   } catch (error) {
+//     console.error('Database Error:', error);
+//     throw new Error('Failed to fetch tickets.');
+//   }
+// }
 
 export async function fetchTicketsPages(query: string) {
   noStore();

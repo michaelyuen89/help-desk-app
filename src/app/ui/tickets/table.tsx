@@ -2,8 +2,8 @@ import Image from "next/image";
 import { UpdateTicket, DeleteTicket } from "@/app/ui/tickets/buttons";
 import TicketStatus from "@/app/ui/tickets/status";
 import { formatDateToLocal } from "@/app/lib/utils";
-// import { fetchFilteredInvoices } from "@/app/lib/data";
-import { tickets } from "@/app/lib/dummydata";
+import { fetchFilteredTickets } from "@/app/lib/data";
+// import { tickets } from "@/app/lib/dummydata";
 
 export default async function TicketsTable({
   query,
@@ -12,7 +12,7 @@ export default async function TicketsTable({
   query: string;
   currentPage: number;
 }) {
-  //   const invoices = await fetchFilteredInvoices(query, currentPage);
+  const tickets = await fetchFilteredTickets(query, currentPage);
 
   return (
     <div className="mt-6 flow-root">

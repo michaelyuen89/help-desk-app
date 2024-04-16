@@ -4,7 +4,7 @@ import Table from "@/app/ui/tickets/table";
 import { CreateTicket } from "@/app/ui/tickets/buttons";
 import { TicketsTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
-// import { fetchTicketsPages } from "@/app/lib/data";
+import { fetchTicketsPages } from "@/app/lib/data";
 
 export default async function Page({
   searchParams,
@@ -17,7 +17,7 @@ export default async function Page({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-//   const totalPages = await fetchTicketsPages(query);
+  const totalPages = await fetchTicketsPages(query);
 
   return (
     <div className="w-full">
@@ -32,7 +32,7 @@ export default async function Page({
         <Table query={query} currentPage={currentPage} />
       </Suspense>
       <div className="mt-5 flex w-full justify-center">
-        {/* <Pagination totalPages={totalPages} /> */}
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );

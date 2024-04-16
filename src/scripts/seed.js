@@ -2,7 +2,7 @@ const { db } = require('@vercel/postgres');
 const {
   tickets,
   users,
-} = require('../app/lib/placeholder-data.js');
+} = require('../app/lib/dummydata.js');
 const bcrypt = require('bcrypt');
 
 async function seedUsers(client) {
@@ -68,7 +68,7 @@ async function seedTickets(client) {
       tickets.map(
         (ticket) => client.sql`
         INSERT INTO tickets (user_id, name, email, description, status, date)
-        VALUES (${ticket.user_id}, ${ticket.name}, ${ticket.email}, ${ticket.description}, ${invoice.status}, ${invoice.date})
+        VALUES (${ticket.user_id}, ${ticket.name}, ${ticket.email}, ${ticket.description}, ${ticket.status}, ${ticket.date})
         ON CONFLICT (id) DO NOTHING;
       `,
       ),

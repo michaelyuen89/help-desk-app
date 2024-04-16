@@ -61,7 +61,9 @@ export default function Page() {
     <main>
       <h1 className="mb-4 text-xl md:text-2xl">Dashboard</h1>
       <form onSubmit={handleSubmit}>
-        <div className="text-3xl font-bold underline">Submit a request</div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          Submit a request
+        </div>
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
           <label>
             Name:{" "}
