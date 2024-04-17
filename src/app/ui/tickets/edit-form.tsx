@@ -60,10 +60,12 @@ export default function Form({
     // <form action={dispatch}>
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
-        <div className="font-medium text-sm">Name: {ticket.name}</div>
-        <div className="text-sm">Date: {formatDateToLocal(ticket.date)}</div>
-        <div className="mb-2 block text-sm ">
-          Description: {ticket.description}
+        <div className="mb-2 w-full rounded-md bg-white p-4">
+          <div className="font-medium text-sm">Name: {ticket.name}</div>
+          <div className="text-sm">Date: {formatDateToLocal(ticket.date)}</div>
+          <div className="mb-2 block text-sm ">
+            Description: {ticket.description}
+          </div>
         </div>
       </div>
       <div className="rounded-md bg-gray-50 p-2 md:p-6">
