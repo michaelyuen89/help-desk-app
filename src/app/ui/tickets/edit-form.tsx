@@ -6,6 +6,8 @@ import Link from "next/link";
 import { CheckIcon, ClockIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/app/ui/button";
 // import { updateTicket } from "@/app/lib/actions";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function Form({
   ticket,
@@ -16,6 +18,40 @@ export default function Form({
 }) {
   const initialState = { message: null, errors: {} };
   // const [state, dispatch] = useFormState(updateTicket, initialState);
+
+  // TODO: Fix backend API using React Server Actions
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [response, setResponse] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+  };
+
+  const handleResponseChange = (e: any) => {
+    setResponse(e.target.value);
+  };
+
+  const handleStatusChange = (e: any) => {
+    setStatus(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    //TODO: send to backend
+    alert(`Ticket updated!
+    name: ${name}, email: ${email}, response: ${response}, status: ${status}`);
+    router.push("/dashboard/tickets");
+  };
+  useEffect(() => {
+    console.log(status);
+  }, [status]);
 
   return (
     // <form action={dispatch}>
@@ -29,6 +65,7 @@ export default function Form({
               id="name"
               name="name"
               type="text"
+              onChange={handleNameChange}
             />
           </label>
           <div id="user-error" aria-live="polite" aria-atomic="true">
@@ -49,6 +86,7 @@ export default function Form({
               id="email"
               name="email"
               type="text"
+              onChange={handleEmailChange}
             />
           </label>
           <div id="email-error" aria-live="polite" aria-atomic="true">
@@ -65,11 +103,12 @@ export default function Form({
               htmlFor="description"
               className="mb-2 block text-sm font-medium"
             >
-              Description:{" "}
+              Response:{" "}
               <textarea
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
-                id="description"
-                name="description"
+                id="response"
+                name="response"
+                onChange={handleResponseChange}
               />
             </label>
             <div id="email-error" aria-live="polite" aria-atomic="true">
@@ -95,6 +134,7 @@ export default function Form({
                     type="radio"
                     value="new"
                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                    onChange={handleStatusChange}
                   />
                   <label
                     htmlFor="new"
@@ -110,6 +150,7 @@ export default function Form({
                     type="radio"
                     value="in progress"
                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                    onChange={handleStatusChange}
                   />
                   <label
                     htmlFor="in progress"
@@ -125,6 +166,7 @@ export default function Form({
                     type="radio"
                     value="resolved"
                     className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                    onChange={handleStatusChange}
                   />
                   <label
                     htmlFor="resolved"
@@ -152,7 +194,9 @@ export default function Form({
           >
             Cancel
           </Link>
-          <Button type="submit">Update Ticket</Button>
+          <Button type="submit" onClick={handleSubmit}>
+            Update Ticket
+          </Button>
         </div>
       </div>
     </form>
