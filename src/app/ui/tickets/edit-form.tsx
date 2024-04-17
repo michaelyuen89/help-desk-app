@@ -8,6 +8,7 @@ import { Button } from "@/app/ui/button";
 // import { updateTicket } from "@/app/lib/actions";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import { formatDateToLocal } from "@/app/lib/utils";
 
 export default function Form({
   ticket,
@@ -16,7 +17,7 @@ export default function Form({
   ticket: TicketForm;
   users: UserField[];
 }) {
-  const initialState = { message: null, errors: {} };
+  // const initialState = { message: null, errors: {} };
   // const [state, dispatch] = useFormState(updateTicket, initialState);
 
   // TODO: Fix backend API using React Server Actions
@@ -42,6 +43,8 @@ export default function Form({
     setStatus(e.target.value);
   };
 
+  console.log(ticket);
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     //TODO: send to backend
@@ -57,9 +60,16 @@ export default function Form({
     // <form action={dispatch}>
     <form>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
+        <div className="font-medium text-sm">Name: {ticket.name}</div>
+        <div className="text-sm">Date: {formatDateToLocal(ticket.date)}</div>
+        <div className="mb-2 block text-sm ">
+          Description: {ticket.description}
+        </div>
+      </div>
+      <div className="rounded-md bg-gray-50 p-2 md:p-6">
         <div className="mb-4">
           <label htmlFor="user" className="mb-2 block text-sm font-medium">
-            Name:{" "}
+            Name:
             <input
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="name"
@@ -80,7 +90,7 @@ export default function Form({
 
         <div className="mb-4">
           <label htmlFor="email" className="mb-2 block text-sm font-medium">
-            Email:{" "}
+            Email:
             <input
               className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
               id="email"
@@ -103,7 +113,7 @@ export default function Form({
               htmlFor="description"
               className="mb-2 block text-sm font-medium"
             >
-              Response:{" "}
+              Response:
               <textarea
                 className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="response"
@@ -123,7 +133,7 @@ export default function Form({
 
           <fieldset>
             <legend className="mb-2 block text-sm font-medium">
-              Change the ticket status
+              Change the ticket status:
             </legend>
             <div className="rounded-md border border-gray-200 bg-white px-[14px] py-3">
               <div className="flex gap-4">

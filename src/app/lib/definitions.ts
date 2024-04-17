@@ -38,4 +38,5 @@ export type TicketForm = {
   email: string;
   description: string;
   status: 'new' | 'in progress' | 'resolved';
+  date: string;
 };

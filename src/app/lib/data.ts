@@ -66,9 +66,12 @@ export async function fetchTicketById(id: string) {
     const data = await sql<TicketForm>`
       SELECT
         tickets.id,
+        tickets.name,
+        tickets.email,
         tickets.user_id,
         tickets.description,
-        tickets.status
+        tickets.status,
+        tickets.date
       FROM tickets
       WHERE tickets.id = ${id};
     `;
