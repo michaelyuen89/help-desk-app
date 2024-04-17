@@ -1,4 +1,4 @@
-import { CheckIcon, ClockIcon } from "@heroicons/react/24/outline";
+import { CheckIcon, ClockIcon, PlusIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
 export default function InvoiceStatus({ status }: { status: string }) {
@@ -15,8 +15,8 @@ export default function InvoiceStatus({ status }: { status: string }) {
     >
       {status === "new" ? (
         <>
-          new
-          <CheckIcon className="ml-1 w-4 text-white" />
+          New
+          <PlusIcon className="ml-1 w-4 text-gray-500" />
         </>
       ) : null}
       {status === "in progress" ? (
