@@ -1,8 +1,7 @@
 import { UpdateTicket, DeleteTicket } from "@/app/ui/tickets/buttons";
 import TicketStatus from "@/app/ui/tickets/status";
-import { formatDateToLocal } from "@/app/lib/utils";
+import { formatDateToLocal, truncateString } from "@/app/lib/utils";
 import { fetchFilteredTickets } from "@/app/lib/data";
-
 
 export default async function TicketsTable({
   query,
@@ -34,7 +33,9 @@ export default async function TicketsTable({
                 </div>
                 <div className="flex w-full items-center justify-between pt-4">
                   <div>
-                    <p className="text-xl font-medium">{ticket.description}</p>
+                    <p className="text-xl font-medium">
+                      {truncateString(ticket.description, 20)}
+                    </p>
                     <p>{formatDateToLocal(ticket.date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
@@ -83,7 +84,7 @@ export default async function TicketsTable({
                     {ticket.email}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
-                    {ticket.description}
+                    {truncateString(ticket.description, 20)}
                   </td>
                   <td className="whitespace-nowrap px-3 py-3">
                     {formatDateToLocal(ticket.date)}
