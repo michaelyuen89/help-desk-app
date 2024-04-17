@@ -1,10 +1,8 @@
 import { sql } from '@vercel/postgres';
 import {
   UserField,
-//   CustomersTableType,
   TicketForm,
   TicketsTable,
-//   LatestInvoiceRaw,
   User,
 } from './definitions';
 import { unstable_noStore as noStore } from 'next/cache';
@@ -38,40 +36,6 @@ export async function fetchFilteredTickets(
     throw new Error('Failed to fetch tickets.');
   }
 }
-// export async function fetchFilteredTickets(
-//   query: string,
-//   currentPage: number,
-// ) {
-//   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
-//   noStore();
-
-//   try {
-//     const tickets = await sql<TicketsTable>`
-//       SELECT
-//         tickets.id,
-//         tickets.description,
-//         tickets.date,
-//         tickets.status,
-//         users.name,
-//         users.email,
-//       FROM tickets
-//       JOIN users ON tickets.user_id = users.id
-//       WHERE
-//         users.name ILIKE ${`%${query}%`} OR
-//         users.email ILIKE ${`%${query}%`} OR
-//         tickets.description::text ILIKE ${`%${query}%`} OR
-//         tickets.date::text ILIKE ${`%${query}%`} OR
-//         tickets.status ILIKE ${`%${query}%`}
-//       ORDER BY tickets.date DESC
-//       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
-//     `;
-
-//     return tickets.rows;
-//   } catch (error) {
-//     console.error('Database Error:', error);
-//     throw new Error('Failed to fetch tickets.');
-//   }
-// }
 
 export async function fetchTicketsPages(query: string) {
   noStore();

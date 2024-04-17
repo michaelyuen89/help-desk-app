@@ -1,7 +1,6 @@
 import Form from "@/app/ui/tickets/create-form";
 import Breadcrumbs from "@/app/ui/tickets/breadcrumbs";
 import { fetchUsers } from "@/app/lib/data";
-// import { users } from "@/app/lib/dummydata";
 
 export default async function Page() {
   const users = await fetchUsers();

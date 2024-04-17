@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { UpdateTicket, DeleteTicket } from "@/app/ui/tickets/buttons";
 import TicketStatus from "@/app/ui/tickets/status";
 import { formatDateToLocal } from "@/app/lib/utils";
@@ -27,13 +26,6 @@ export default async function TicketsTable({
                 <div className="flex items-center justify-between border-b pb-4">
                   <div>
                     <div className="mb-2 flex items-center">
-                      {/* <Image
-                        src={ticket.image_url}
-                        className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${ticket.name}'s profile picture`}
-                      /> */}
                       <p>{ticket.name}</p>
                     </div>
                     <p className="text-sm text-gray-500">{ticket.email}</p>
@@ -84,13 +76,6 @@ export default async function TicketsTable({
                 >
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex items-center gap-3">
-                      {/* <Image
-                        src={ticket.image_url}
-                        className="rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`${ticket.name}'s profile picture`}
-                      /> */}
                       <p>{ticket.name}</p>
                     </div>
                   </td>

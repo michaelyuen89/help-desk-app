@@ -1,4 +1,8 @@
-import { PencilIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowUturnLeftIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { deleteTicket } from "@/app/lib/actions";
 
@@ -20,7 +24,7 @@ export function UpdateTicket({ id }: { id: string }) {
       href={`/dashboard/tickets/${id}/edit`}
       className="rounded-md border p-2 hover:bg-gray-100"
     >
-      <PencilIcon className="w-5" />
+      <ArrowUturnLeftIcon className="w-5" />
     </Link>
   );
 }

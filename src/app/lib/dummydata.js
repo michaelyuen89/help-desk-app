@@ -42,6 +42,18 @@ const users = [
     email: 'shantibraford@gmail.com',
     password: '123456',
   },
+  {
+    id: '2213dc9e-737f-4377-85e9-fec4b6a6442a',
+    name: 'Test User',
+    email: 'test@getzealthy.com',
+    password: '123456',
+  },  
+  {
+    id: '1235dc9e-737f-4377-85e9-fec4b6a6442a',
+    name: 'Michael Jordan',
+    email: 'michael@jordan.com',
+    password: '123456',
+  },
 ];
 
 const tickets = [
@@ -98,6 +110,22 @@ const tickets = [
     name: "Shanti Braford",
     email: "Shanti@gmail.com",
     description: "Testing tickets",
+    status: 'resolved',
+    date: '2024-04-17',
+  },
+  {
+    user_id: users[7].id,
+    name: "Test User",
+    email: "test@getzealthy.com",
+    description: "power outtage",
+    status: 'resolved',
+    date: '2024-04-17',
+  },
+  {
+    user_id: users[8].id,
+    name: "Michael Jordan",
+    email: "michael@jordan.com",
+    description: "mobile help",
     status: 'resolved',
     date: '2024-04-17',
   },
