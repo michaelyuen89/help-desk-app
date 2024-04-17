@@ -3,7 +3,7 @@ import { UpdateTicket, DeleteTicket } from "@/app/ui/tickets/buttons";
 import TicketStatus from "@/app/ui/tickets/status";
 import { formatDateToLocal } from "@/app/lib/utils";
 import { fetchFilteredTickets } from "@/app/lib/data";
-// import { tickets } from "@/app/lib/dummydata";
+
 
 export default async function TicketsTable({
   query,
@@ -21,7 +21,7 @@ export default async function TicketsTable({
           <div className="md:hidden">
             {tickets.map((ticket) => (
               <div
-                key={ticket.user_id}
+                key={ticket.id}
                 className="mb-2 w-full rounded-md bg-white p-4"
               >
                 <div className="flex items-center justify-between border-b pb-4">
@@ -46,8 +46,8 @@ export default async function TicketsTable({
                     <p>{formatDateToLocal(ticket.date)}</p>
                   </div>
                   <div className="flex justify-end gap-2">
-                    <UpdateTicket id={ticket.user_id} />
-                    <DeleteTicket id={ticket.user_id} />
+                    <UpdateTicket id={ticket.id} />
+                    <DeleteTicket id={ticket.id} />
                   </div>
                 </div>
               </div>
@@ -108,8 +108,8 @@ export default async function TicketsTable({
                   </td>
                   <td className="whitespace-nowrap py-3 pl-6 pr-3">
                     <div className="flex justify-end gap-3">
-                      <UpdateTicket id={ticket.user_id} />
-                      <DeleteTicket id={ticket.user_id} />
+                      <UpdateTicket id={ticket.id} />
+                      <DeleteTicket id={ticket.id} />
                     </div>
                   </td>
                 </tr>

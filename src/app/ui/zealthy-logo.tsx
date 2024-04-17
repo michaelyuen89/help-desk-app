@@ -5,9 +5,10 @@ export default function ZealthyLogo() {
     <div className="flex flex-row items-center leading-none text-white">
       <Image
         src="/zealthy_logo.svg"
-        width={400}
-        height={760}
+        width={500}
+        height={400}
         alt="Zealthy Logo"
+        priority={true}
       />
     </div>
   );

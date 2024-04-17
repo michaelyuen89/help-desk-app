@@ -4,7 +4,7 @@ import { fetchUsers } from "@/app/lib/data";
 // import { users } from "@/app/lib/dummydata";
 
 export default async function Page() {
-    const users = await fetchUsers();
+  const users = await fetchUsers();
 
   return (
     <main>

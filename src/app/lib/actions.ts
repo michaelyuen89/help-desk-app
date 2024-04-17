@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { getUser } from './data';
  
 const FormSchema = z.object({
   id: z.string(),
@@ -17,15 +18,14 @@ const FormSchema = z.object({
   description: z.string({
     invalid_type_error: 'Please enter a description.',
   }),
-  status: z.enum(['new', 'in progress', 'resolved'], {invalid_type_error: 'Please select a ticket status.',}),
+  status: z.enum(['new', 'in progress', 'resolved']),
   date: z.string(),
 });
  
-const CreateTicket = FormSchema.omit({ id: true, date: true });
+const CreateTicket = FormSchema.omit({ id: true, userId: true, date: true });
 
 export type State = {
   errors?: {
-    userId?: string[];
     name?: string[];
     email?: string[];
     description?: string[];
@@ -37,15 +37,15 @@ export type State = {
 export async function createTicket(prevState: State, formData: FormData) {
   // Validate form using Zod
   const validatedFields = CreateTicket.safeParse({
-    userId: formData.get('user_id'),
     name: formData.get('name'),
     email: formData.get('email'),
     description: formData.get('description'),
-    status: formData.get('status'),
+    status: 'new',
   });
 
   console.log(validatedFields);
- 
+  
+
   // If form validation fails, return errors early. Otherwise, continue.
   if (!validatedFields.success) {
     return {
@@ -55,16 +55,14 @@ export async function createTicket(prevState: State, formData: FormData) {
   }
  
   // Prepare data for insertion into the database
-  const { userId, name, email, description, status } = validatedFields.data;
+  const { name, email, description, status} = validatedFields.data;
   const date = new Date().toISOString().split('T')[0];
+  const user = await getUser(email);
 
-  console.log(validatedFields.data);
-  
-  // Insert data into the database
   try {
     await sql`
-      INSERT INTO tickets (name, email, description, status, date)
-      VALUES (${name}, ${email}, ${description}, ${status}, ${date})
+      INSERT INTO tickets (user_id, name, email, description, status, date)
+      VALUES (${user.id} ${name}, ${email}, ${description}, ${status}, ${date})
     `;
   } catch (error) {
     // If a database error occurs, return a more specific error.
@@ -76,6 +74,49 @@ export async function createTicket(prevState: State, formData: FormData) {
   // Revalidate the cache for the invoices page and redirect the user.
   revalidatePath('/dashboard/tickets');
   redirect('/dashboard/tickets');
+}
+
+const UpdateTicket = FormSchema.omit({ id: true, userId: true, date: true });
+
+export async function updateTicket(id: string, formData: FormData) {
+  const { name, email, description, status } = UpdateTicket.parse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    description: formData.get('description'),
+    status: formData.get('status'),
+  });
+  
+  console.log(name, email, description, status);
+
+  try {
+    await sql`
+    UPDATE tickets
+    SET name = ${name}, email = ${email}, description = ${description}, status = ${status}
+    WHERE id = ${id}
+  `;
+  } catch (error) {
+    return {
+      message: 'Database Error: Failed to Update Ticket.',
+    };
+    
+  }
+ 
+  revalidatePath('/dashboard/tickets');
+  redirect('/dashboard/tickets');
+}
+
+export async function deleteTicket(id: string) {
+
+    try {
+        await sql`DELETE FROM tickets WHERE id = ${id}`;
+        revalidatePath('/dashboard/tickets');
+        return { message: 'Deleted Ticket.' };
+    } catch (error) {
+        return {
+            message: 'Database Error: Failed to Delete Ticket.',
+        };
+    }
+    
 }
 
 
